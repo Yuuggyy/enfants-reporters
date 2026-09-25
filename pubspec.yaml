@@ -1,7 +1,7 @@
 name: enfants_reporters
 description: Application de gestion, formation et évaluation des Enfants Reporters en RDC.
 publish_to: 'none'
-version: 0.1.0
+version: 0.2.1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'

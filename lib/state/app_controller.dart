@@ -32,26 +32,60 @@ class AppController extends ChangeNotifier {
     return 'Débutant';
   }
 
+  /// Charge l'état sauvegardé. Volontairement défensif : toute donnée
+  /// locale corrompue (ancienne version, format changé) est ignorée au
+  /// lieu de faire planter l'application au démarrage.
   Future<void> charger() async {
-    final prefs = await SharedPreferences.getInstance();
-    final u = prefs.getString('utilisateur');
-    if (u != null) {
-      utilisateur = UserProfile.fromJson(jsonDecode(u) as Map<String, dynamic>);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      try {
+        final u = prefs.getString('utilisateur');
+        if (u != null) {
+          utilisateur =
+              UserProfile.fromJson(jsonDecode(u) as Map<String, dynamic>);
+        }
+      } catch (_) {
+        utilisateur = null;
+        await prefs.remove('utilisateur');
+      }
+
+      xp = prefs.getInt('xp') ?? 0;
+      serie = prefs.getInt('serie') ?? 0;
+
+      try {
+        final d = prefs.getString('derniereActivite');
+        derniereActivite = d == null ? null : DateTime.parse(d);
+      } catch (_) {
+        derniereActivite = null;
+        await prefs.remove('derniereActivite');
+      }
+
+      try {
+        final s = prefs.getString('scores');
+        if (s != null) {
+          final m = jsonDecode(s) as Map<String, dynamic>;
+          m.forEach((k, v) => scores[k] = v as int);
+        }
+      } catch (_) {
+        await prefs.remove('scores');
+      }
+
+      try {
+        final b = prefs.getString('badges');
+        if (b != null) {
+          badgesGagnes.addAll((jsonDecode(b) as List).cast<String>());
+        }
+      } catch (_) {
+        await prefs.remove('badges');
+      }
+
+      _mettreAJourSerie();
+    } catch (_) {
+      // Si même SharedPreferences échoue, on démarre sur un état neutre
+      // plutôt que de bloquer l'application.
+      utilisateur = null;
     }
-    xp = prefs.getInt('xp') ?? 0;
-    serie = prefs.getInt('serie') ?? 0;
-    final d = prefs.getString('derniereActivite');
-    derniereActivite = d == null ? null : DateTime.parse(d);
-    final s = prefs.getString('scores');
-    if (s != null) {
-      final m = jsonDecode(s) as Map<String, dynamic>;
-      m.forEach((k, v) => scores[k] = v as int);
-    }
-    final b = prefs.getString('badges');
-    if (b != null) {
-      badgesGagnes.addAll((jsonDecode(b) as List).cast<String>());
-    }
-    _mettreAJourSerie();
     notifyListeners();
   }
 
