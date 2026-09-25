@@ -12,3 +12,4 @@ pubspec.lock
 # Archives et fichiers locaux
 *.bin
 .DS_Store
+pubspec.lock
