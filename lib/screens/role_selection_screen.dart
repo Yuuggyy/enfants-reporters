@@ -33,7 +33,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
     super.dispose();
   }
 
-  void _seConnecter() {
+  Future<void> _seConnecter() async {
     if (_role == null || _nomCtrl.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Choisis un rôle et entre ton nom.')),
@@ -46,7 +46,8 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
       pseudo: _pseudoCtrl.text.trim(),
       role: _role!,
     );
-    widget.controller.connecter(u);
+    await widget.controller.connecter(u);
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override

@@ -22,6 +22,16 @@ class AppController extends ChangeNotifier {
 
   bool get estConnecte => utilisateur != null;
 
+  /// Rang du reporter selon les XP (parcours Debutant -> Redacteur en chef).
+  String get rang {
+    if (xp >= 800) return 'Rédacteur en chef';
+    if (xp >= 500) return 'Grand Reporter';
+    if (xp >= 300) return 'Reporter Confirmé';
+    if (xp >= 150) return 'Reporter Junior';
+    if (xp >= 50) return 'Reporter Stagiaire';
+    return 'Débutant';
+  }
+
   Future<void> charger() async {
     final prefs = await SharedPreferences.getInstance();
     final u = prefs.getString('utilisateur');

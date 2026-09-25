@@ -52,18 +52,27 @@ class _PortailState extends State<_Portail> {
         body: Center(child: CircularProgressIndicator()),
       );
     }
-    final c = widget.controller;
-    Widget dest;
-    if (!c.estConnecte) {
-      dest = WelcomeScreen(controller: c);
-    } else if (c.utilisateur!.estEnfant && !c.utilisateur!.consentementParental) {
-      dest = ConsentScreen(controller: c);
-    } else {
-      dest = HomeShell(controller: c);
-    }
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 250),
-      child: dest,
+    return AnimatedBuilder(
+      animation: widget.controller,
+      builder: (context, _) {
+        final c = widget.controller;
+        Widget dest;
+        if (!c.estConnecte) {
+          dest = WelcomeScreen(controller: c);
+        } else if (c.utilisateur!.estEnfant &&
+            !c.utilisateur!.consentementParental) {
+          dest = ConsentScreen(controller: c);
+        } else {
+          dest = HomeShell(controller: c);
+        }
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          child: KeyedSubtree(
+            key: ValueKey(dest.runtimeType),
+            child: dest,
+          ),
+        );
+      },
     );
   }
 }

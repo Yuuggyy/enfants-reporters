@@ -56,6 +56,11 @@ class HomeScreen extends StatelessWidget {
                   couleur: AppTheme.violet,
                 ),
                 StatChip(
+                  icone: Icons.workspace_premium,
+                  libelle: controller.rang,
+                  couleur: AppTheme.corail,
+                ),
+                StatChip(
                   icone: Icons.emoji_events,
                   libelle: '${controller.scores.length} leçons',
                   couleur: AppTheme.vert,

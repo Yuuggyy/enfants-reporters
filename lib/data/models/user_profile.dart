@@ -13,6 +13,7 @@ class UserProfile extends Equatable {
   final String? clubId;
   final String? tuteurNom;
   final String? tuteurTelephone;
+  final String? tuteurPin;
   final bool consentementParental;
 
   const UserProfile({
@@ -24,6 +25,7 @@ class UserProfile extends Equatable {
     this.clubId,
     this.tuteurNom,
     this.tuteurTelephone,
+    this.tuteurPin,
     this.consentementParental = false,
   });
 
@@ -36,6 +38,7 @@ class UserProfile extends Equatable {
   UserProfile copyWith({
     String? tuteurNom,
     String? tuteurTelephone,
+    String? tuteurPin,
     bool? consentementParental,
   }) =>
       UserProfile(
@@ -47,6 +50,7 @@ class UserProfile extends Equatable {
         clubId: clubId,
         tuteurNom: tuteurNom ?? this.tuteurNom,
         tuteurTelephone: tuteurTelephone ?? this.tuteurTelephone,
+        tuteurPin: tuteurPin ?? this.tuteurPin,
         consentementParental:
             consentementParental ?? this.consentementParental,
       );
@@ -60,6 +64,7 @@ class UserProfile extends Equatable {
         'clubId': clubId,
         'tuteurNom': tuteurNom,
         'tuteurTelephone': tuteurTelephone,
+        'tuteurPin': tuteurPin,
         'consentementParental': consentementParental,
       };
 
@@ -75,6 +80,7 @@ class UserProfile extends Equatable {
         clubId: json['clubId'] as String?,
         tuteurNom: json['tuteurNom'] as String?,
         tuteurTelephone: json['tuteurTelephone'] as String?,
+        tuteurPin: json['tuteurPin'] as String?,
         consentementParental: (json['consentementParental'] ?? false) as bool,
       );
 

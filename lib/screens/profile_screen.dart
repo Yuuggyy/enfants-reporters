@@ -103,6 +103,7 @@ class ProfileScreen extends StatelessWidget {
                 StatChip(icone: Icons.stars, libelle: '${controller.xp} XP', couleur: AppTheme.jaune),
                 StatChip(icone: Icons.local_fire_department, libelle: '${controller.serie} jours de série', couleur: AppTheme.corail),
                 StatChip(icone: Icons.military_tech, libelle: '$nbBadges badges', couleur: AppTheme.violet),
+                StatChip(icone: Icons.workspace_premium, libelle: controller.rang, couleur: AppTheme.bleu),
               ],
             ),
           ),
@@ -121,6 +122,7 @@ class ProfileScreen extends StatelessWidget {
                   Text('• Capsules validées : $nbLecons'),
                   Text('• Badges de compétence : $nbBadges/${academy.badges.length}'),
                   Text('• Consentement parental : ${user.consentementParental ? 'enregistré ✓' : 'à compléter'}'),
+                  Text('• Rang actuel : ${controller.rang}'),
                   if (user.tuteurNom != null)
                     Text('• Tuteur : ${user.tuteurNom}'),
                 ],

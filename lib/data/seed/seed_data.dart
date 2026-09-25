@@ -14,7 +14,10 @@ class SeedData {
       id: 'mod_cde',
       titre: 'Droits de l\'enfant',
       description:
-          'Découvre la Convention relative aux droits de l\'enfant et le Code de l\'enfant congolais.',
+          'Découvre la CDE et le Code de l\'enfant congolais. Le programme '
+          'Enfants Reporters lancé en 2009 par l\'UNICEF et le Ministère du '
+          'Genre réunit 300 à 600 enfants reporters (10-17 ans) dans presque '
+          'toutes les provinces, avec une parité filles-garçons de 50/50.',
       emoji: '⚖️',
       couleurValue: 0xFF1CABE2,
       badgeTitre: 'Badge Expert CDE',
@@ -72,7 +75,7 @@ class SeedData {
       dureeMinutes: 4,
       ordre: 3,
       paragraphes: [
-        'La RDC a adopté le 10 janvier 2009 la loi n°09/011 portant protection de l\'enfant, appelée Code de l\'enfant. Elle reprend les engagements de la CDE et les adapte à la réalité congolaise.',
+        'La RDC a adopté le 10 janvier 2009 la loi n°09/001 portant protection de l\'enfant, appelée Code de l\'enfant. Elle reprend les engagements de la CDE et les adapte à la réalité congolaise. C\'est aussi en 2009 que l\'UNICEF et le Ministère du Genre ont lancé le programme Enfants Reporters, fondé sur l\'article 12 de la CDE.',
         'Le Code de l\'enfant fixe la majorité à 18 ans, garantit le droit à l\'éducation gratuite au primaire et interdit les pires formes de travail des enfants, y compris dans les mines.',
         'En tant qu\'enfant reporter, connaître ce texte te donne des arguments solides pour tes plaidoyers : tu peux citer la loi, pas seulement la morale.',
       ],
@@ -122,7 +125,7 @@ class SeedData {
       dureeMinutes: 4,
       ordre: 1,
       paragraphes: [
-        'La radio reste le média numéro 1 en RDC : elle atteint même ceux qui n\'ont pas accès à Internet, en français comme dans les langues nationales (lingala, swahili, tshiluba, kikongo).',
+        'La radio reste le média numéro 1 en RDC : elle atteint même ceux qui n\'ont pas accès à Internet, en français comme dans les langues nationales (lingala, swahili, tshiluba, kikongo). Les productions des enfants reporters paraissent sur ponabana.com, sur Radio Okapi et sur les radios communautaires, après validation du comité de modération.',
         'Pour bien parler à la radio : respire calmement, parle ni trop vite ni trop lentement, articule chaque mot et souris sincèrement, on l\'entend dans la voix.',
         'Fais l\'exercice du micro-trottoir : enregistre-toi en posant une question à trois personnes de ton quartier, puis réécoute-toi. Tu progresseras à chaque essai.',
       ],
@@ -254,10 +257,10 @@ class SeedData {
       id: 'q_cde_3_1',
       lessonId: 'les_cde_3',
       question: 'Quelle loi porte le Code de l\'enfant congolais ?',
-      options: ['Loi n°09/011 du 10 janvier 2009', 'Ordonnance n°23/010', 'Loi n°06/018'],
+      options: ['Loi n°09/001 du 10 janvier 2009', 'Ordonnance n°23/010', 'Loi n°06/018'],
       bonneReponse: 0,
       explication:
-          'C\'est la loi n°09/011 du 10 janvier 2009 portant protection de l\'enfant.',
+          'C\'est la loi n°09/001 du 10 janvier 2009 portant protection de l\'enfant.',
     ),
     QuizQuestion(
       id: 'q_cde_3_2',
@@ -687,6 +690,15 @@ class SeedData {
       ecole: 'Complexe scolaire Shari',
       nbEnfants: 21,
       mentorNom: 'Mme Dina',
+    ),
+    Club(
+      id: 'club_mat_1',
+      nom: 'Club Sanga Mambu',
+      province: 'Kongo-Central',
+      ville: 'Matadi',
+      ecole: 'Institut Ndongi',
+      nbEnfants: 19,
+      mentorNom: 'Mme Nsiantulu',
     ),
     Club(
       id: 'club_mbd_1',

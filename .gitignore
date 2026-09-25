@@ -13,3 +13,5 @@ pubspec.lock
 *.bin
 .DS_Store
 pubspec.lock
+android/key.properties
+android/app/*.keystore
