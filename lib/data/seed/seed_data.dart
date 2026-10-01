@@ -5,8 +5,9 @@ import '../models/lesson.dart';
 import '../models/module.dart';
 import '../models/quiz_question.dart';
 
-/// Contenu pédagogique de la Phase 1 : 3 modules, 9 micro-capsules,
-/// 36 questions de quiz. Contenu inspiré du programme Enfants Reporters
+/// Contenu pédagogique : 6 modules, 18 micro-capsules, 63 questions de
+/// quiz (Phase 1 + extension alignée sur le cahier des charges UNICEF :
+/// plaidoyer, fact-checking, sécurité numérique). Contenu inspiré du programme Enfants Reporters
 /// de l'UNICEF RDC (CDE, éthique journalistique, radio).
 class SeedData {
   static const modules = [
@@ -39,6 +40,37 @@ class SeedData {
       emoji: '📻',
       couleurValue: 0xFF7B5AC5,
       badgeTitre: 'Badge Reporter Radio',
+    ),
+    ModuleFormation(
+      id: 'mod_plaidoyer',
+      titre: 'Plaidoyer',
+      description:
+          'Passe du reportage à l\'action : cible les décideurs, construis ton '
+          'argumentaire et obtiens des engagements concrets pour les droits de '
+          'l\'enfant.',
+      emoji: '📣',
+      couleurValue: 0xFF2E7D32,
+      badgeTitre: 'Badge Plaidoyer',
+    ),
+    ModuleFormation(
+      id: 'mod_factcheck',
+      titre: 'Vérification des faits',
+      description:
+          'Lutte contre les fausses informations : vérifie une rumeur, une '
+          'photo ou une vidéo avant de la partager.',
+      emoji: '🔎',
+      couleurValue: 0xFFF9A825,
+      badgeTitre: 'Badge Fact-Checker',
+    ),
+    ModuleFormation(
+      id: 'mod_cyber',
+      titre: 'Sécurité numérique',
+      description:
+          'Protège-toi en ligne : mots de passe, réseaux sociaux, '
+          'cyberharcèlement et bonnes pratiques WhatsApp.',
+      emoji: '🔐',
+      couleurValue: 0xFF00695C,
+      badgeTitre: 'Badge Cyber-Sécurisé',
     ),
   ];
 
@@ -152,6 +184,117 @@ class SeedData {
         'Ton smartphone est un vrai outil de journaliste. Pour un bon son : approche le micro à environ 20 cm de la bouche, cherche un endroit calme, et fais toujours une prise d\'essai de 10 secondes.',
         'Dans le vent ou dans la rue, protège le micro avec ta main ou ton carnet. Si le son est mauvais, ton reportage ne passera pas à l\'antenne, même si le contenu est excellent.',
         'Une fois enregistré, ton fichier peut être envoyé à la radio communautaire partenaire ou partagé sur WhatsApp avec l\'accord de ton mentor. C\'est ainsi que la voix des enfants voyage à travers tout le pays.',
+      ],
+    ),
+    // --- Module Plaidoyer ---
+    Lesson(
+      id: 'les_pld_1',
+      moduleId: 'mod_plaidoyer',
+      titre: 'Cibler les décideurs',
+      dureeMinutes: 4,
+      ordre: 1,
+      paragraphes: [
+        'Le plaidoyer, c\'est parler à la bonne personne pour changer les choses. Un bon plaidoyer commence par se poser la question : qui a le pouvoir de résoudre ce problème ? Le chef de quartier, le directeur de l\'école, le maire, le ministre ?',
+        'Une fois la cible identifiée, prépare un message court et précis : le problème, une preuve (ton reportage, une photo, une pétition), et ta demande concrète. « Nous demandons que... » est plus fort que « c\'est injuste ».',
+        'Les enfants reporters de la RDC ont déjà obtenu des résultats réels : réparations d\'écoles, réhabilitation de points d\'eau, lutte contre la stigmatisation des enfants accusés de sorcellerie. Ton reportage peut être le début d\'un changement.',
+      ],
+    ),
+    Lesson(
+      id: 'les_pld_2',
+      moduleId: 'mod_plaidoyer',
+      titre: 'Construire son argumentaire',
+      dureeMinutes: 5,
+      ordre: 2,
+      paragraphes: [
+        'Un argumentaire solide combine trois preuves : un fait vérifiable (un chiffre officiel), une histoire humaine (le témoignage d\'une personne concernée), et la loi (la CDE ou le Code de l\'enfant).',
+        'Structure ta demande comme une pyramide : commence par le plus important. Si le décideur ne retient qu\'une phrase, ce sera la première. Termine toujours par une question fermée : « Pouvez-vous vous engager à... ? »',
+        'Prépare aussi tes réponses aux objections. Si on te dit « il n\'y a pas de budget », propose une solution moins chère ou un partenaire possible. Le plaidoyeur prépare le chemin, il ne subit pas la conversation.',
+      ],
+    ),
+    Lesson(
+      id: 'les_pld_3',
+      moduleId: 'mod_plaidoyer',
+      titre: 'Le plaidoyer par les médias',
+      dureeMinutes: 4,
+      ordre: 3,
+      paragraphes: [
+        'Ton reportage peut devenir un outil de plaidoyer : un article ou un reportage radio bien diffusé met la pression publique sur les décideurs plus vite qu\'une lettre seule.',
+        'La stratégie la plus efficace combine les canaux : une lettre officielle au décideur, un reportage sur ponabana.com ou à la radio, et le soutien de ton club. Plus la voix est collective, plus elle porte.',
+        'Après chaque action de plaidoyer, note les engagements pris et suis-les. Un décideur qui a promis publiquement s\'y tient plus facilement. C\'est ce suivi qui transforme les paroles en changements réels.',
+      ],
+    ),
+    // --- Module Vérification des faits ---
+    Lesson(
+      id: 'les_fact_1',
+      moduleId: 'mod_factcheck',
+      titre: 'Repérer une fausse information',
+      dureeMinutes: 4,
+      ordre: 1,
+      paragraphes: [
+        'Une fausse information, c\'est une info inventée ou déformée, souvent diffusée pour faire peur, colérer ou tromper. En RDC, les rumeurs circulent vite sur WhatsApp, surtout en période électorale ou d\'épidémie.',
+        'Les signes d\'alerte : un message qui te demande de « diffuser vite », des chiffres sans source, une photo choquante sans date ni lieu, ou un texte écrit en majuscules avec beaucoup de points d\'exclamation.',
+        'Avant de partager quoi que ce soit, applique la règle des 3 secondes : stop, vérifie, décide. Une info non vérifiée que tu partages peut blesser de vraies personnes.',
+      ],
+    ),
+    Lesson(
+      id: 'les_fact_2',
+      moduleId: 'mod_factcheck',
+      titre: 'Vérifier une photo ou une vidéo',
+      dureeMinutes: 5,
+      ordre: 2,
+      paragraphes: [
+        'Une photo peut être vraie mais ancienne, ou vraie mais prise ailleurs. Les journalistes utilisent la recherche d\'image inversée : tu téléverses la photo dans un moteur de recherche d\'images et tu vois où et quand elle est déjà apparue.',
+        'Regarde aussi les détails : les panneaux et les langues affichées, le sens de circulation, la météo, la végétation. Une photo présentée comme prise à Kinshasa mais montrant des plaques étrangères doit t\'alerter.',
+        'Pour les vidéos, cherche la source d\'origine plutôt que la copie reçue. Qui a filmé ? Quand ? Où ? Si personne ne peut répondre, l\'info ne peut pas être partagée en tant que faits.',
+      ],
+    ),
+    Lesson(
+      id: 'les_fact_3',
+      moduleId: 'mod_factcheck',
+      titre: 'Croiser les sources',
+      dureeMinutes: 4,
+      ordre: 3,
+      paragraphes: [
+        'La règle d\'or du reporter : une information n\'est fiable que si au moins deux sources indépendantes la confirment. « On m\'a dit » n\'est pas une source.',
+        'Apprends à reconnaître les sources fiables : les sites officiels du gouvernement et des agences des Nations Unies (comme l\'UNICEF ou l\'OMS), les médias reconnus comme Radio Okapi, et les personnes directement concernées ou témoins.',
+        'Si tu as un doute sur une info, demande à ton mentor avant de publier. Un reportage retiré pour erreur fait plus de mal à ta crédibilité qu\'un reportage publié un jour plus tard après vérification.',
+      ],
+    ),
+    // --- Module Sécurité numérique ---
+    Lesson(
+      id: 'les_cyb_1',
+      moduleId: 'mod_cyber',
+      titre: 'Mots de passe et comptes',
+      dureeMinutes: 4,
+      ordre: 1,
+      paragraphes: [
+        'Ton mot de passe est la clé de ta maison numérique. Un bon mot de passe est long (au moins 8 caractères), mélange lettres, chiffres et symboles, et ne contient ni ton prénom ni ta date de naissance.',
+        'N\'utilise jamais le même mot de passe partout, et ne le partage avec personne, même pas avec ton meilleur ami. Si quelqu\'un connaît ton mot de passe, il peut se faire passer pour toi.',
+        'Active le verrouillage de ton téléphone et, quand c\'est possible, la vérification en deux étapes : même si quelqu\'un vole ton mot de passe, il ne pourra pas entrer sans le second code.',
+      ],
+    ),
+    Lesson(
+      id: 'les_cyb_2',
+      moduleId: 'mod_cyber',
+      titre: 'Réseaux sociaux et vie privée',
+      dureeMinutes: 5,
+      ordre: 2,
+      paragraphes: [
+        'Tout ce que tu publies en ligne peut rester là pour toujours, même après suppression. Avant de publier une photo ou un message, demande-toi : serais-je à l\'aise si mes parents, mon directeur ou mon futur employeur le voyaient ?',
+        'Configure tes comptes en privé et n\'accepte que les personnes que tu connais dans la vraie vie. Ne publie jamais ton adresse, ton école, tes horaires ou ta localisation en direct.',
+        'Méfie-toi des inconnus trop gentils en ligne : quelqu\'un qui offre des cadeaux, demande des photos ou veut te rencontrer en secret applique la technique du prédateur. Bloque, ne réponds pas, et parle à un adulte de confiance.',
+      ],
+    ),
+    Lesson(
+      id: 'les_cyb_3',
+      moduleId: 'mod_cyber',
+      titre: 'Cyberharcèlement : réagir',
+      dureeMinutes: 4,
+      ordre: 3,
+      paragraphes: [
+        'Le cyberharcèlement, c\'est se moquer de quelqu\'un, menacer ou diffuser ses secrets ou photos en ligne. Ce n\'est jamais la faute de la victime, et ce n\'est pas « juste pour rire ».',
+        'Si tu es victime : ne réponds pas à l\'agresseur, capture des preuves (captures d\'écran avec date), bloque la personne, et parle immédiatement à un adulte de confiance. Le bouton SOS de cette application t\'y connecte.',
+        'Si tu es témoin : ne participe pas au partage, laisse un message de soutien à la victime, et signale le contenu à la plateforme. Un club qui protège ses membres est un club où chacun ose s\'exprimer.',
       ],
     ),
   ];
@@ -574,6 +717,353 @@ class SeedData {
       explication:
           'La chaîne de validation du mentor garantit la sécurité et la qualité.',
     ),
+    QuizQuestion(
+      id: 'q_pld_1_1',
+      lessonId: 'les_pld_1',
+      question: 'Quelle est la première étape d\'un bon plaidoyer ?',
+      options: [
+        'Faire une grande manifestation',
+        'Identifier qui a le pouvoir de résoudre le problème',
+        'Écrire un long rapport',
+      ],
+      bonneReponse: 1,
+      explication:
+          'On commence toujours par cibler le décideur qui peut réellement agir : c\'est lui qu\'il faut convaincre.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_1_2',
+      lessonId: 'les_pld_1',
+      question: 'Un message de plaidoyer efficace contient...',
+      options: [
+        'Le problème, une preuve et une demande concrète',
+        'Beaucoup de plaintes sur l\'injustice',
+        'Une liste de tous les problèmes du quartier',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Problème + preuve + demande concrète : cette structure courte est plus forte qu\'une longue liste de reproches.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_1_3',
+      lessonId: 'les_pld_1',
+      question: 'Que peut obtenir un plaidoyer d\'enfants reporters bien mené ?',
+      options: [
+        'Rien, les enfants ne sont pas écoutés',
+        'Des engagements concrets comme la réparation d\'une école',
+        'Uniquement des félicitations',
+      ],
+      bonneReponse: 1,
+      explication:
+          'En RDC, des plaidoyers d\'enfants reporters ont déjà conduit à des réparations d\'écoles et de points d\'eau.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_2_1',
+      lessonId: 'les_pld_2',
+      question: 'Quels sont les trois types de preuves d\'un argumentaire solide ?',
+      options: [
+        'Un fait vérifiable, une histoire humaine, la loi',
+        'Une opinion, une rumeur, une photo',
+        'Une menace, un chiffre, une pétition',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Le fait apporte la crédibilité, l\'histoire humaine touche le cœur, la loi donne la force légale.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_2_2',
+      lessonId: 'les_pld_2',
+      question: 'Pourquoi commencer ton message par le plus important ?',
+      options: [
+        'Parce que le décideur peut ne retenir que le début',
+        'Pour gagner du temps à l\'écriture',
+        'Parce que c\'est la tradition',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Comme en journalisme, l\'essentiel passe en premier : l\'attention du décideur est courte.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_2_3',
+      lessonId: 'les_pld_2',
+      question: 'Que faire si le décideur répond « il n\'y a pas de budget » ?',
+      options: [
+        'Abandonner le plaidoyer',
+        'Se mettre en colère',
+        'Proposer une solution moins chère ou un partenaire',
+      ],
+      bonneReponse: 2,
+      explication:
+          'Un bon plaidoyeur prépare des réponses aux objections et propose des alternatives réalisables.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_3_1',
+      lessonId: 'les_pld_3',
+      question: 'Comment un reportage devient-il un outil de plaidoyer ?',
+      options: [
+        'En diffusant des rumeurs sur le décideur',
+        'En créant une pression publique sur le problème',
+        'En restant dans le carnet du reporter',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Un reportage bien diffusé informe le public et met une pression légitime sur les décideurs.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_3_2',
+      lessonId: 'les_pld_3',
+      question: 'Quelle combinaison de canaux est la plus efficace ?',
+      options: [
+        'Lettre officielle + reportage + soutien du club',
+        'WhatsApp uniquement',
+        'Attendre la télévision nationale',
+      ],
+      bonneReponse: 0,
+      explication:
+          'La voix collective multi-canaux porte plus loin qu\'une action isolée.',
+    ),
+    QuizQuestion(
+      id: 'q_pld_3_3',
+      lessonId: 'les_pld_3',
+      question: 'Que faut-il faire après chaque action de plaidoyer ?',
+      options: [
+        'Noter les engagements pris et les suivre',
+        'Oublier et passer à autre chose',
+        'Récompenser les participants uniquement',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Le suivi des engagements transforme les promesses en changements réels.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_1_1',
+      lessonId: 'les_fact_1',
+      question: 'Quel signe doit t\'alerter sur un message WhatsApp ?',
+      options: [
+        'Il te demande de diffuser vite, sans source vérifiable',
+        'Il contient une photo de fleurs',
+        'Il est envoyé par ton cousin',
+      ],
+      bonneReponse: 0,
+      explication:
+          'L\'urgence + absence de source = signe classique de rumeur ou de désinformation.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_1_2',
+      lessonId: 'les_fact_1',
+      question: 'Quelle est la règle des 3 secondes ?',
+      options: [
+        'Stop, vérifie, décide',
+        'Lis, ris, partage',
+        'Écoute, crois, diffuse',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Avant tout partage : on s\'arrête, on vérifie, puis seulement on décide de partager ou non.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_1_3',
+      lessonId: 'les_fact_1',
+      question: 'Une info non vérifiée que tu partages peut...',
+      options: [
+        'Blesser de vraies personnes',
+        'Toujours aider la communauté',
+        'Rester sans conséquence',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Les fausses informations ont des victimes réelles : stigmatisation, panique, violences. Un reporter vérifie avant de diffuser.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_2_1',
+      lessonId: 'les_fact_2',
+      question: 'Une photo peut être « vraie » mais...',
+      options: [
+        'Ancienne ou prise dans un autre pays',
+        'C\'est impossible, une photo est toujours actuelle',
+        'Toujours truquée',
+      ],
+      bonneReponse: 0,
+      explication:
+          'La désinformation réutilise souvent de vraies photos sorties de leur contexte : autre date, autre lieu.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_2_2',
+      lessonId: 'les_fact_2',
+      question: 'Qu\'est-ce que la recherche d\'image inversée ?',
+      options: [
+        'Téléverser une photo dans un moteur de recherche pour voir où elle est déjà apparue',
+        'Retourner la photo dans un logiciel',
+        'Chercher le texte écrit sur la photo',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Elle révèle la première apparition de la photo et permet de détecter les vieux visuels réutilisés.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_2_3',
+      lessonId: 'les_fact_2',
+      question: 'Si personne ne peut dire qui a filmé une vidéo, quand et où...',
+      options: [
+        'Tu peux la partager en précisant « on dit que »',
+        'Tu ne peux pas la présenter comme un fait',
+        'C\'est une preuve de sa véracité',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Sans source identifiable, une vidéo ne peut pas être partagée comme information factuelle.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_3_1',
+      lessonId: 'les_fact_3',
+      question: 'Combien de sources indépendantes pour confirmer une information ?',
+      options: ['Une seule suffit', 'Au moins deux', 'Aucune, si le message est convaincant'],
+      bonneReponse: 1,
+      explication:
+          'La règle du reporter : au moins deux sources indépendantes avant de publier.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_3_2',
+      lessonId: 'les_fact_3',
+      question: 'Laquelle est une source fiable ?',
+      options: [
+        'Un anonyme dans un groupe WhatsApp',
+        'Radio Okapi et les sites des agences des Nations Unies',
+        'Une page qui promet des cadeaux',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Les médias reconnus et les agences officielles vérifient leurs informations avant publication.',
+    ),
+    QuizQuestion(
+      id: 'q_fact_3_3',
+      lessonId: 'les_fact_3',
+      question: 'Que faire en cas de doute sur une info ?',
+      options: [
+        'La publier avec un point d\'interrogation',
+        'Demander à ton mentor avant de publier',
+        'La publier, quelqu\'un corrigera',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Le mentor aide à vérifier : mieux vaut publier un jour plus tard que de devoir se rétracter.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_1_1',
+      lessonId: 'les_cyb_1',
+      question: 'Un bon mot de passe contient...',
+      options: [
+        'Ton prénom et ta date de naissance',
+        'Au moins 8 caractères, mélangés',
+        'Le mot « motdepasse »',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Long, mixte et sans informations personnelles devinables : c\'est la clé solide.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_1_2',
+      lessonId: 'les_cyb_1',
+      question: 'Peux-tu partager ton mot de passe avec ton meilleur ami ?',
+      options: [
+        'Non, jamais',
+        'Oui, si tu lui fais confiance',
+        'Oui, s\'il promet de ne rien dire',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Un mot de passe partagé permet à quelqu\'un de se faire passer pour toi. Il reste secret.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_1_3',
+      lessonId: 'les_cyb_1',
+      question: 'À quoi sert la vérification en deux étapes ?',
+      options: [
+        'À doubler ton forfait internet',
+        'À bloquer un voleur de mot de passe grâce à un second code',
+        'À accélérer ta connexion',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Même avec ton mot de passe, un intrus ne peut pas entrer sans le second code.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_2_1',
+      lessonId: 'les_cyb_2',
+      question: 'Avant de publier, quelle question se poser ?',
+      options: [
+        'Serai-je à l\'aise si mes parents ou mon directeur voyaient ceci ?',
+        'Combien de « j\'aime » vais-je obtenir ?',
+        'Est-ce que c\'est drôle pour mes amis ?',
+      ],
+      bonneReponse: 0,
+      explication:
+          'Ce qui est publié en ligne peut rester pour toujours : la règle est de publier ce que tu assumerais devant tous.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_2_2',
+      lessonId: 'les_cyb_2',
+      question: 'Que ne doit-on JAMAIS publier en ligne ?',
+      options: [
+        'Ta couleur préférée',
+        'Ton adresse, ton école ou ta localisation en direct',
+        'Une photo de ton plat préféré',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Ces informations permettent à un inconnu de te retrouver dans la vraie vie.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_2_3',
+      lessonId: 'les_cyb_2',
+      question: 'Un inconnu très gentil te propose un cadeau en ligne. Que faire ?',
+      options: [
+        'Accepter, c\'est sûrement généreux',
+        'Ne pas répondre, bloquer et parler à un adulte de confiance',
+        'Lui demander d\'abord son vrai nom',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Les offres suspectes de strangers sont la technique classique des prédateurs : bloquer et en parler.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_3_1',
+      lessonId: 'les_cyb_3',
+      question: 'Si tu es victime de cyberharcèlement, que faire en premier ?',
+      options: [
+        'Répondre avec la même violence',
+        'Ne pas répondre, capturer les preuves, bloquer et en parler à un adulte',
+        'Supprimer ton compte et te taire',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Garder les preuves et en parler protège : le harcèlement n\'est jamais la faute de la victime.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_3_2',
+      lessonId: 'les_cyb_3',
+      question: 'Que faire si tu es témoin de cyberharcèlement ?',
+      options: [
+        'Partager pour avertir les autres',
+        'Ne pas participer au partage, soutenir la victime et signaler le contenu',
+        'Rire pour ne pas être visé',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Un témoin qui ne relaie pas et qui signale casse la dynamique du harcèlement.',
+    ),
+    QuizQuestion(
+      id: 'q_cyb_3_3',
+      lessonId: 'les_cyb_3',
+      question: 'De qui la faute quand quelqu\'un est harcelé en ligne ?',
+      options: [
+        'De la victime, qui a publié quelque chose',
+        'De l\'agresseur, jamais de la victime',
+        'Du hasard',
+      ],
+      bonneReponse: 1,
+      explication:
+          'Le cyberharcèlement est la faute de l\'agresseur. La victime mérite soutien et protection.',
+    ),
   ];
 
   static const badges = [
@@ -597,6 +1087,27 @@ class SeedData {
       description: 'Module Radio terminé avec succès.',
       emoji: '📻',
       moduleId: 'mod_radio',
+    ),
+    BadgeCompetence(
+      id: 'bad_pld',
+      titre: 'Plaidoyer',
+      description: 'Module Plaidoyer terminé avec succès.',
+      emoji: '📣',
+      moduleId: 'mod_plaidoyer',
+    ),
+    BadgeCompetence(
+      id: 'bad_fact',
+      titre: 'Fact-Checker',
+      description: 'Module Vérification des faits terminé avec succès.',
+      emoji: '🔎',
+      moduleId: 'mod_factcheck',
+    ),
+    BadgeCompetence(
+      id: 'bad_cyb',
+      titre: 'Cyber-Sécurisé',
+      description: 'Module Sécurité numérique terminé avec succès.',
+      emoji: '🔐',
+      moduleId: 'mod_cyber',
     ),
   ];
 
