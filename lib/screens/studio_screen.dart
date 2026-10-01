@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../core/app_theme.dart';
+
 import '../data/models/article_draft.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/seed/seed_data.dart';
@@ -55,7 +57,7 @@ class _StudioScreenState extends State<StudioScreen> {
             child: Text(
               'Rédige tes reportages au format journaliste : Qui ? Quoi ? '
               'Où ? Quand ? Pourquoi ? Ton mentor validera avant publication.',
-              style: TextStyle(color: Colors.black54),
+              style: TextStyle(color: AppTheme.texteSecondaire),
             ),
           ),
           if (_brouillons.isEmpty)
@@ -88,7 +90,7 @@ class _StudioScreenState extends State<StudioScreen> {
                   leading: Icon(
                     Icons.article,
                     color: d.statut == ArticleStatut.brouillon
-                        ? Colors.black26
+                        ? AppTheme.bordure
                         : d.statut == ArticleStatut.soumis
                             ? const Color(0xFFFF6B4A)
                             : const Color(0xFF2FBF71),

@@ -20,7 +20,7 @@ class SeedData {
           'Genre réunit 300 à 600 enfants reporters (10-17 ans) dans presque '
           'toutes les provinces, avec une parité filles-garçons de 50/50.',
       emoji: '⚖️',
-      couleurValue: 0xFF1CABE2,
+      couleurValue: 0xFF3B82F6,
       badgeTitre: 'Badge Expert CDE',
     ),
     ModuleFormation(
@@ -29,7 +29,7 @@ class SeedData {
       description:
           'Apprends à préparer une interview, poser les bonnes questions et respecter l\'éthique.',
       emoji: '🎤',
-      couleurValue: 0xFFFF6B4A,
+      couleurValue: 0xFFFF5B68,
       badgeTitre: 'Badge Intervieweur',
     ),
     ModuleFormation(
@@ -38,7 +38,7 @@ class SeedData {
       description:
           'Ta voix compte : diction, écriture de script radio et enregistrement au smartphone.',
       emoji: '📻',
-      couleurValue: 0xFF7B5AC5,
+      couleurValue: 0xFF9F7BF0,
       badgeTitre: 'Badge Reporter Radio',
     ),
     ModuleFormation(
@@ -49,7 +49,7 @@ class SeedData {
           'argumentaire et obtiens des engagements concrets pour les droits de '
           'l\'enfant.',
       emoji: '📣',
-      couleurValue: 0xFF2E7D32,
+      couleurValue: 0xFF4CAF50,
       badgeTitre: 'Badge Plaidoyer',
     ),
     ModuleFormation(
@@ -69,7 +69,7 @@ class SeedData {
           'Protège-toi en ligne : mots de passe, réseaux sociaux, '
           'cyberharcèlement et bonnes pratiques WhatsApp.',
       emoji: '🔐',
-      couleurValue: 0xFF00695C,
+      couleurValue: 0xFF26A69A,
       badgeTitre: 'Badge Cyber-Sécurisé',
     ),
   ];

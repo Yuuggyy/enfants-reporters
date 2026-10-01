@@ -91,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                 UserRole.moderateur => 'Modérateur',
                 UserRole.parent => 'Parent / Tuteur',
               },
-              style: const TextStyle(color: Colors.black54),
+              style: const TextStyle(color: AppTheme.texteSecondaire),
             ),
           ),
           const SizedBox(height: 16),

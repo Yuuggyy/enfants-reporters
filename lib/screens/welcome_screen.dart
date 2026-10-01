@@ -47,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
               Text(
                 AppConstants.appTagline,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.black54),
+                style: const TextStyle(fontSize: 16, color: AppTheme.texteSecondaire),
               ),
               const Spacer(),
               FilledButton.icon(
@@ -63,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
               const Text(
                 'Un projet de formation des enfants reporters\nen République Démocratique du Congo',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Colors.black45),
+                style: TextStyle(fontSize: 12, color: AppTheme.texteSecondaire),
               ),
               const YuuStoreFooter(),
             ],

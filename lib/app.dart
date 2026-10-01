@@ -18,7 +18,7 @@ class EnfantsReportersApp extends StatelessWidget {
     return MaterialApp(
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
+      theme: AppTheme.dark,
       home: _Portail(controller: controller),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../core/app_theme.dart';
+
 import '../data/models/user_profile.dart';
 import '../state/app_controller.dart';
 
@@ -70,19 +72,19 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
               child: ListTile(
                 leading: Icon(
                   e.value.$3,
-                  color: _role == e.key ? Colors.white : Colors.black54,
+                  color: _role == e.key ? Colors.white : AppTheme.texteSecondaire,
                 ),
                 title: Text(
                   e.value.$1,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: _role == e.key ? Colors.white : Colors.black87,
+                    color: _role == e.key ? Colors.white : Colors.white,
                   ),
                 ),
                 subtitle: Text(
                   e.value.$2,
                   style: TextStyle(
-                    color: _role == e.key ? Colors.white70 : Colors.black45,
+                    color: _role == e.key ? Colors.white70 : AppTheme.texteSecondaire,
                   ),
                 ),
                 onTap: () => setState(() => _role = e.key),

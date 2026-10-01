@@ -204,7 +204,7 @@ class _QuizScreenState extends State<QuizScreen> {
               'Score : $_bonnes/${_questions.length}'
               '  •  Seuil : $seuil bonnes réponses',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black54),
+              style: const TextStyle(color: AppTheme.texteSecondaire),
             ),
             const SizedBox(height: 8),
             Text(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../core/app_theme.dart';
+
 import '../data/models/lesson.dart';
 import '../data/repositories/academy_repository.dart';
 import '../state/app_controller.dart';
@@ -30,7 +32,7 @@ class ModuleDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Text(
               m.description,
-              style: const TextStyle(fontSize: 15, color: Colors.black54),
+              style: const TextStyle(fontSize: 15, color: AppTheme.texteSecondaire),
             ),
           ),
           for (final Lesson l in lecons)
