@@ -1,0 +1,35 @@
+{
+    "name": "BanApp - Engagement des Adolescents & Enfants Reporters RDC",
+    "short_name": "BanApp",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#EAB308",
+    "theme_color": "#00ADEF",
+    "description": "Plateforme officielle d'engagement des adolescents et des Enfants Reporters en RDC.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

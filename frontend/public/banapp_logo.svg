@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="banGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EAB308"/>
+      <stop offset="50%" stop-color="#CA8A04"/>
+      <stop offset="100%" stop-color="#A16207"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="30%" cy="25%" r="70%">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#CA8A04" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#78350F" flood-opacity="0.3"/>
+    </filter>
+    <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#78350F" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Golden Square with Rounded Corners -->
+  <rect width="512" height="512" rx="64" fill="url(#banGoldGrad)"/>
+  <rect width="512" height="512" rx="64" fill="url(#sunGlow)"/>
+
+  <!-- Subtle Phone Outline rotated -12deg -->
+  <g transform="translate(256, 260) rotate(-12) translate(-256, -260)">
+    <!-- Phone Outer Body -->
+    <rect x="156" y="76" width="200" height="370" rx="42" fill="#FEF9C3" fill-opacity="0.25" stroke="#78350F" stroke-width="16" stroke-linejoin="round"/>
+    <!-- Screen -->
+    <rect x="174" y="104" width="164" height="314" rx="26" fill="none" stroke="#92400E" stroke-width="8" stroke-opacity="0.4"/>
+    <!-- Speaker / Dynamic Island Notch -->
+    <line x1="226" y1="92" x2="286" y2="92" stroke="#78350F" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Floating Social Badges (Top Right) -->
+  <!-- Badge 1: Heart (Like) -->
+  <g transform="translate(340, 150)">
+    <rect x="0" y="0" width="96" height="88" rx="24" fill="#FEF9C3" fill-opacity="0.5" stroke="#78350F" stroke-width="12"/>
+    <path d="M48 64 C20 42 22 24 34 18 C42 14 47 20 48 24 C49 20 54 14 62 18 C74 24 76 42 48 64 Z" fill="none" stroke="#78350F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Badge 2: User Profile -->
+  <g transform="translate(360, 260)">
+    <rect x="0" y="0" width="96" height="88" rx="24" fill="#FEF9C3" fill-opacity="0.5" stroke="#78350F" stroke-width="12"/>
+    <circle cx="48" cy="34" r="14" fill="none" stroke="#78350F" stroke-width="10"/>
+    <path d="M26 68 C26 50 36 48 48 48 C60 48 70 50 70 68" fill="none" stroke="#78350F" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bold Serif White Text: Ban App -->
+  <text x="130" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="130" font-weight="900" fill="#FFFFFF" filter="url(#textGlow)">Ban</text>
+  <text x="210" y="375" font-family="Georgia, 'Times New Roman', serif" font-size="130" font-weight="900" fill="#FFFFFF" filter="url(#textGlow)">App</text>
+
+  <!-- UNICEF Emblem / Laurel Seal (Bottom Right) -->
+  <g transform="translate(420, 420)">
+    <circle cx="0" cy="0" r="54" fill="#B45309" fill-opacity="0.35"/>
+    <circle cx="0" cy="0" r="54" fill="none" stroke="#FEF08A" stroke-width="7" stroke-opacity="0.85"/>
+    <!-- Stylized Child & Mother Laurel -->
+    <circle cx="-8" cy="-2" r="16" fill="none" stroke="#FEF9C3" stroke-width="6"/>
+    <circle cx="10" cy="-6" r="11" fill="none" stroke="#FEF9C3" stroke-width="5"/>
+    <!-- Laurel Wreath Arc -->
+    <path d="M-40 10 C-44 32 -10 44 0 44 C10 44 44 32 40 10" fill="none" stroke="#FEF08A" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>
