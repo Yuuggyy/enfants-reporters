@@ -12,7 +12,11 @@ if project_root not in sys.path:
 
 # Configurer PYTHONPATH pour les sous-processus reloader d'Uvicorn
 existing_pythonpath = os.environ.get("PYTHONPATH", "")
-os.environ["PYTHONPATH"] = (project_root + os.pathsep + existing_pythonpath) if existing_pythonpath else project_root
+os.environ["PYTHONPATH"] = (
+    (project_root + os.pathsep + existing_pythonpath)
+    if existing_pythonpath
+    else project_root
+)
 
 # Assurer que SQLAlchemy fonctionne sans bloquer sur les extensions C si nécessaire
 os.environ["DISABLE_SQLALCHEMY_CEXT"] = "1"
@@ -35,5 +39,11 @@ if __name__ == "__main__":
     print("    - Email    : alain.mukendi@reipe.cd")
     print("    - Password : Encadreur2026!")
     print("=" * 60)
-    
-    uvicorn.run("backend.app.main:app", host="127.0.0.1", port=8000, reload=True, app_dir=project_root)
+
+    uvicorn.run(
+        "backend.app.main:app",
+        host="127.0.0.1",
+        port=8000,
+        reload=True,
+        app_dir=project_root,
+    )

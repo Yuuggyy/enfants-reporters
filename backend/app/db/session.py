@@ -1,23 +1,28 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from backend.app.core.config import settings
+# On importe AsyncGenerator pour le typage de notre dépendance de base de données.
+from collections.abc import AsyncGenerator
 
-# SQLite nécessite connect_args={"check_same_thread": False}
-connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}
-
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args=connect_args,
-    pool_pre_ping=True
+from sqlalchemy.ext.asyncio import (  # La fabrique de sessions asynchrones; La fonction pour créer le moteur asynchrone
+    AsyncSession,  # La classe de session asynchrone
+    async_sessionmaker,
+    create_async_engine,
 )
+from sqlalchemy.orm import DeclarativeBase
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+from ..core.config import settings
 
-Base = declarative_base()
+engine = create_async_engine(settings.DATABASE_URL, echo=True)
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+async_session = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+# Cette fonction est une dépendance FastAPI. Elle sera appelée pour chaque requête.
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    # On ouvre une nouvelle session de base de données.
+    async with async_session() as session:
+        # On donne la session à la route qui en a besoin.
+        yield session
+    # À la fin de la requête, la session est automatiquement fermée grâce au 'async with'.

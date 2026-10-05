@@ -1,16 +1,30 @@
-from typing import Dict, Any, Optional
 from datetime import datetime
-from pydantic import BaseModel, Field
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from backend.app.db.session import get_db
-from backend.app.models.models import Adolescent, CanalInscriptionEnum, StatutInscriptionEnum, StatutConsentementEnum, Club, EncadreurNotification, AuditLog
-from backend.app.schemas.schemas import AdolescentResponse
+from pydantic import BaseModel, Field
+from sqlalchemy import func, select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from ...db.session import get_db
+from ...models.models import (
+    Adolescent,
+    AuditLog,
+    CanalInscriptionEnum,
+    Club,
+    EncadreurNotification,
+    StatutConsentementEnum,
+    StatutInscriptionEnum,
+)
+from ...schemas.schemas import AdolescentResponse
 
 router = APIRouter(prefix="/rapidpro", tags=["Intégration RapidPro & Canaux Télécoms"])
 
+
 class RapidProWebhookPayload(BaseModel):
-    contact_urn: str = Field(..., description="ex: tel:+243812345678 ou whatsapp:243812345678")
+    contact_urn: str = Field(
+        ..., description="ex: tel:+243812345678 ou whatsapp:243812345678"
+    )
     flow_id: str = Field(default="flow-unicef-inscription-v1")
     prenom: str
     age: int
@@ -22,51 +36,82 @@ class RapidProWebhookPayload(BaseModel):
     milieu: str = "Urbain"
     statut_scolaire: str = "Scolarisé"
 
+
 class USSDSessionRequest(BaseModel):
     session_id: str
     phone_number: str
-    ussd_string: str = Field(..., description="ex: *120*243*1*Esther*15*F*Kinshasa*Nsele*0811110002#")
+    ussd_string: str = Field(
+        ..., description="ex: *120*243*1*Esther*15*F*Kinshasa*Nsele*0811110002#"
+    )
+
 
 @router.post("/webhook", response_model=AdolescentResponse)
-def rapidpro_webhook_handler(
-    payload: RapidProWebhookPayload,
-    db: Session = Depends(get_db)
+async def rapidpro_webhook_handler(
+    payload: RapidProWebhookPayload, db: Annotated[AsyncSession, Depends(get_db)]
 ):
     """
     Webhook officiel appelé par l'instance RapidPro (U-Report) lorsque le flux WhatsApp
     ou SMS d'inscription d'un adolescent est complété.
     """
-    clean_phone = payload.contact_urn.replace("tel:", "").replace("whatsapp:", "").strip()
-    
+    clean_phone = (
+        payload.contact_urn.replace("tel:", "").replace("whatsapp:", "").strip()
+    )
+
     # 1. Validation de l'âge
     if payload.age < 12 or payload.age > 17:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Âge inéligible : le programme UNICEF concerne les 12-17 ans."
+            detail="Âge inéligible : le programme UNICEF concerne les 12-17 ans.",
         )
 
     # 2. Vérification existence
-    existing = db.query(Adolescent).filter(Adolescent.telephone == clean_phone).first()
+    existing = (
+        (
+            await db.execute(
+                select(Adolescent).where(Adolescent.telephone == clean_phone)
+            )
+        )
+        .scalars()
+        .first()
+    )
     if existing:
         return existing
 
     # 3. Association Club et Encadreur
-    club = db.query(Club).filter(
-        (Club.province.ilike(f"%{payload.province}%")) & 
-        (Club.ville.ilike(f"%{payload.ville}%"))
-    ).first()
+    club = (
+        (
+            await db.execute(
+                select(Club).where(
+                    (Club.province.ilike(f"%{payload.province}%"))
+                    & (Club.ville.ilike(f"%{payload.ville}%"))
+                )
+            )
+        )
+        .scalars()
+        .first()
+    )
     if not club:
-        club = db.query(Club).filter(Club.province.ilike(f"%{payload.province}%")).first()
+        club = (
+            (
+                await db.execute(
+                    select(Club).where(Club.province.ilike(f"%{payload.province}%"))
+                )
+            )
+            .scalars()
+            .first()
+        )
 
     club_id = club.id if club else None
     encadreur_id = club.encadreur_id if (club and club.encadreur_id) else "ENC-KIN-01"
 
-    count_all = db.query(Adolescent).count() + 1
+    count_all = (
+        (await db.execute(select(func.count(Adolescent.id)))).scalar() or 0
+    ) + 1
     ado_id = f"ADO-2026-{count_all:04d}"
 
     canal = (
-        CanalInscriptionEnum.CHATBOT_RAPIDPRO 
-        if "whatsapp" in payload.contact_urn.lower() 
+        CanalInscriptionEnum.CHATBOT_RAPIDPRO
+        if "whatsapp" in payload.contact_urn.lower()
         else CanalInscriptionEnum.SMS
     )
 
@@ -89,38 +134,40 @@ def rapidpro_webhook_handler(
         statut_consentement=StatutConsentementEnum.EN_ATTENTE,
         points_xp=50,
         certifie=False,
-        date_inscription=datetime.utcnow()
+        date_inscription=datetime.now(),
     )
     db.add(ado)
-    db.flush()
+    await db.flush()
 
     # Notification Encadreur
     notif = EncadreurNotification(
-        id=f"NOTIF-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}-RP",
+        id=f"NOTIF-{datetime.now().strftime('%Y%m%d%H%M%S')}-RP",
         encadreur_id=encadreur_id,
         adolescent_id=ado.id,
         type_notification="NOUVELLE_INSCRIPTION",
         titre=f"Nouvelle inscription RapidPro ({canal.value}) : {ado.prenom} ({ado.age} ans)",
         message=f"Inscription reçue via RapidPro pour {ado.prenom} ({ado.sexe}, {ado.ville}/{ado.province}). Contact parent: {ado.telephone_parent}.",
         is_read=False,
-        created_at=datetime.utcnow()
+        created_at=datetime.now(),
     )
     db.add(notif)
-    db.add(AuditLog(
-        user_id=ado.id,
-        user_role="RAPIDPRO_WEBHOOK",
-        action="WEBHOOK_INSCRIPTION",
-        details=f"Inscription automatique via RapidPro webhook ({canal.value}) de {ado.prenom}"
-    ))
+    db.add(
+        AuditLog(
+            user_id=ado.id,
+            user_role="RAPIDPRO_WEBHOOK",
+            action="WEBHOOK_INSCRIPTION",
+            details=f"Inscription automatique via RapidPro webhook ({canal.value}) de {ado.prenom}",
+        )
+    )
 
-    db.commit()
-    db.refresh(ado)
+    await db.commit()
+    await db.refresh(ado)
     return ado
 
+
 @router.post("/simulate-ussd")
-def simulate_ussd_session(
-    request: USSDSessionRequest,
-    db: Session = Depends(get_db)
+async def simulate_ussd_session(
+    request: USSDSessionRequest, db: Annotated[AsyncSession, Depends(get_db)]
 ):
     """
     Simule la passerelle USSD des opérateurs télécoms (Vodacom, Airtel, Orange, Africell).
@@ -132,7 +179,7 @@ def simulate_ussd_session(
     if len(parts) < 7:
         return {
             "ussd_response": "CON Bienvenue sur BanApp RDC !\n1. Entrez: Prenom*Age*Sexe(F/M)*Province*Ville*TelParent",
-            "action": "CONTINUE"
+            "action": "CONTINUE",
         }
 
     try:
@@ -141,20 +188,27 @@ def simulate_ussd_session(
     except Exception:
         return {
             "ussd_response": "END Format invalide. Exemple: *120*243*1*Esther*15*F*Kinshasa*Nsele*0811110002#",
-            "action": "END"
+            "action": "END",
         }
 
     if age < 12 or age > 17:
         return {
             "ussd_response": "END Désolé, ce programme est réservé aux 12-17 ans.",
-            "action": "END"
+            "action": "END",
         }
 
     # Création du dossier
-    count_all = db.query(Adolescent).count() + 1
+
+    count_all = (
+        (await db.execute(select(func.count(Adolescent.id)))).scalar() or 0
+    ) + 1
     ado_id = f"ADO-2026-{count_all:04d}"
 
-    club = db.query(Club).filter(Club.province.ilike(f"%{province}%")).first()
+    club = (
+        (await db.execute(select(Club).where(Club.province.ilike(f"%{province}%"))))
+        .scalars()
+        .first()
+    )
     enc_id = club.encadreur_id if (club and club.encadreur_id) else "ENC-KIN-01"
 
     ado = Adolescent(
@@ -176,26 +230,26 @@ def simulate_ussd_session(
         statut_consentement=StatutConsentementEnum.EN_ATTENTE,
         points_xp=50,
         certifie=False,
-        date_inscription=datetime.utcnow()
+        date_inscription=datetime.now(),
     )
     db.add(ado)
-    db.flush()
+    await db.flush()
 
     notif = EncadreurNotification(
-        id=f"NOTIF-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}-USSD",
+        id=f"NOTIF-{datetime.now().strftime('%Y%m%d%H%M%S')}-USSD",
         encadreur_id=enc_id,
         adolescent_id=ado.id,
         type_notification="NOUVELLE_INSCRIPTION",
         titre=f"Inscription USSD à valider : {ado.prenom} ({ado.age} ans, {ado.sexe})",
         message=f"{ado.prenom} ({ado.ville}/{ado.province}) s'est inscrit via USSD. Contact Parent: {ado.telephone_parent}.",
         is_read=False,
-        created_at=datetime.utcnow()
+        created_at=datetime.now(),
     )
     db.add(notif)
-    db.commit()
+    await db.commit()
 
     return {
         "ussd_response": f"END Inscription réussie ! Votre ID est {ado_id}. Votre encadreur local va valider votre dossier.",
         "action": "END",
-        "adolescent_id": ado_id
+        "adolescent_id": ado_id,
     }
