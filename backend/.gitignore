@@ -1,0 +1,168 @@
+# ============================================================================
+#  PYTHON
+# ============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================================================
+#  ENVIRONNEMENTS VIRTUELS
+# ============================================================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# Anaconda / conda
+.conda/
+*.conda
+
+# ============================================================================
+#  VARIABLES D'ENVIRONNEMENT & SECRETS
+# ============================================================================
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# ============================================================================
+#  FASTAPI / UVICORN / PYTEST
+# ============================================================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+*.cover
+*.log
+
+# ============================================================================
+#  SQLALCHEMY / BASE DE DONNÉES
+# ============================================================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Alembic (si tu actives les migrations plus tard)
+# alembic/versions/*.py   # ⬅️ à NE PAS ignorer si tu veux versionner les migrations !
+# Décommente uniquement si tu veux ignorer les migrations générées :
+# alembic/versions/*.py
+
+# ============================================================================
+#  IDE / ÉDITEURS
+# ============================================================================
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# ============================================================================
+#  SYSTÈME D'EXPLOITATION
+# ============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================================================
+#  LOGS & FICHIERS TEMPORAIRES
+# ============================================================================
+*.log
+logs/
+*.pid
+*.seed
+*.bak
+*.tmp
+*.temp
+tmp/
+temp/
+
+# ============================================================================
+#  CACHE
+# ============================================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.cache/
+
+# ============================================================================
+#  NGROK / TUNNELS (utile pour tester USSD avec Africa's Talking)
+# ============================================================================
+ngrok
+ngrok.yml
+ngrok.log
+*.ngrok
+
+# ============================================================================
+#  DOCKER (si tu dockerises plus tard)
+# ============================================================================
+*.pid
+docker-compose.override.yml
+
+# ============================================================================
+#  DÉPLOIEMENT / CI-CD
+# ============================================================================
+.deploy/
+.vercel/
+.netlify/
+.aws/
+terraform.tfstate*
